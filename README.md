@@ -641,6 +641,27 @@
   ```
   
 </details>
+<details>
+  <summary><b>차트JS 시각화 에러 </b></summary>
+  <b>현상</b><br>
+   &gt; 차트가 새로운 데이터가 수신될 때 받아오지못한다. &gt;
+   &gt; 코드  &gt;
+   
+   
+   <b>해결방법</b>
+  &gt; 새로운 데이터가 수신될때마다 이전 차트를 제거하고 새로운 차트 재생성을 해야함 &gt;
+  &gt; 데이터를 받아 그래프를 그린 뒤 구독취소를 한 이유는 구독을 해두면 해당 페이지에 다른 사용자가 접속할 때마다 그래프가 새로 그려지기 때문이다. &gt
+
+  var daySubs= stompClient.subscribe('/process/daychart', function (data) {
+            var result = refineData("day", JSON.parse(data.body));
+            drawChart(result[0], result[1], result[2], result[3], "일일 생산 현황");
+            writeData("day",result);
+            daySubs.unsubscribe();
+        });
+
+   
+             
+</details>
 <br><br><br><br>
 
 <span id="8"></span>
